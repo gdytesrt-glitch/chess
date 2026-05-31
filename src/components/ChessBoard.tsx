@@ -22,10 +22,6 @@ export const ChessBoard: React.FC<ChessBoardProps> = ({
 }) => {
   const cols = 'abcdefgh';
 
-  const getSquareColor = (row: number, col: number) => {
-    const isLight = (row + col) % 2 === 0;
-    return isLight ? 'bg-amber-100' : 'bg-amber-800';
-  };
 
   const renderSquare = (row: number, col: number) => {
     const piece = board.grid[row][col];
@@ -34,20 +30,20 @@ export const ChessBoard: React.FC<ChessBoardProps> = ({
     const isLastMoveFrom = lastMove && lastMove.from_row === row && lastMove.from_col === col;
     const isLastMoveTo = lastMove && lastMove.to_row === row && lastMove.to_col === col;
 
-    const squareClasses = `
-      w-full h-full relative cursor-pointer
-      transition-all duration-200 ease-out
-      ${getSquareColor(row, col)}
-      ${isSelected ? 'ring-4 ring-yellow-400 ring-inset z-10' : ''}
-      ${(isLastMoveFrom || isLastMoveTo) ? 'bg-yellow-300' : ''}
-      hover:brightness-125
-    `;
+    const isLight = (row + col) % 2 === 0;
+    const bgColor = isLight ? 'bg-amber-100' : 'bg-amber-800';
 
     return (
       <div
-        key={`${row}-${col}`}
         onClick={() => onSquareClick(row, col)}
-        className={squareClasses}
+        className={`
+          w-full h-full relative cursor-pointer
+          transition-all duration-200 ease-out
+          ${bgColor}
+          ${isSelected ? 'ring-4 ring-yellow-400 ring-inset z-10' : ''}
+          ${(isLastMoveFrom || isLastMoveTo) ? 'brightness-110 bg-yellow-300' : ''}
+          hover:brightness-125
+        `}
       >
         {/* Legal move dot */}
         {isLegalMove && piece === '.' && (
@@ -114,10 +110,14 @@ export const ChessBoard: React.FC<ChessBoardProps> = ({
         </div>
 
         {/* Chess board */}
-        <div className="flex-1 rounded-lg overflow-hidden shadow-2xl ring-2 ring-amber-900/40">
-          <div className="grid grid-cols-8">
+        <div className="flex-1 rounded-lg overflow-hidden shadow-2xl ring-2 ring-amber-900/40" style={{ aspectRatio: '1 / 1' }}>
+          <div className="grid grid-cols-8 gap-0 w-full h-full">
             {displayRows.map(row =>
-              displayCols.map(col => renderSquare(row, col))
+              displayCols.map(col => (
+                <div key={`${row}-${col}`} className="relative w-full h-full">
+                  {renderSquare(row, col)}
+                </div>
+              ))
             )}
           </div>
         </div>
