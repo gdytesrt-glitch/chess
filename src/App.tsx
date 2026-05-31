@@ -9,7 +9,11 @@ import { ChessEngine, Move, ChessBoardState, CognitiveData } from './lib/chessEn
 export type GameMode = 'new' | 'playing' | 'gameover';
 
 export default function App() {
-  const [board, setBoard] = useState<ChessBoardState>(ChessEngine.getInitialBoard());
+  const [board, setBoard] = useState<ChessBoardState>(() => {
+    const initial = ChessEngine.getInitialBoard();
+    console.log('Initial board state:', initial);
+    return initial;
+  });
   const [gameMode, setGameMode] = useState<GameMode>('new');
   const [selectedSquare, setSelectedSquare] = useState<{ row: number; col: number } | null>(null);
   const [legalMoves, setLegalMoves] = useState<Move[]>([]);

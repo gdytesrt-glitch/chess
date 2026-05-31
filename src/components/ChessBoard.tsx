@@ -69,10 +69,10 @@ export const ChessBoard: React.FC<ChessBoardProps> = ({
             <span
               className="text-4xl sm:text-5xl md:text-6xl"
               style={{
-                color: piece.toUpperCase() === piece ? '#FAFAFA' : '#1A1A1A',
-                textShadow: piece.toUpperCase() === piece
-                  ? '2px 2px 4px rgba(0,0,0,0.8), -1px -1px 2px rgba(0,0,0,0.6)'
-                  : '1px 1px 2px rgba(255,255,255,0.4)',
+                color: piece === piece.toUpperCase() ? '#FFFFFF' : '#1A1A1A',
+                textShadow: piece === piece.toUpperCase()
+                  ? '2px 2px 4px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.8)'
+                  : '2px 2px 4px rgba(0,0,0,0.5)',
                 lineHeight: 1,
                 fontWeight: 'bold'
               }}
