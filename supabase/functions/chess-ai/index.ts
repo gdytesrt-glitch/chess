@@ -456,8 +456,8 @@ Deno.serve(async (req: Request) => {
     const color = board.white_to_move ? 'white' : 'black';
     const depth = Math.min(5, Math.max(1, difficulty));
 
-    // Run AI search
-    const result = minimax(board, depth, -Infinity, Infinity, true, color);
+    // Run AI search (always maximize for the AI's color)
+    const result = minimax(board, depth, -Infinity, Infinity, board.white_to_move, color);
 
     if (!result.move) {
       return new Response(

@@ -52,8 +52,16 @@ export default function App() {
 
     if (!error && data) {
       setGameId(data.id);
+
+      // If AI plays first (black player chosen), trigger AI move
+      if (color === 'black') {
+        setIsAIThinking(true);
+        setTimeout(() => {
+          makeAIMove(newBoard, []);
+        }, 500);
+      }
     }
-  }, []);
+  }, [makeAIMove]);
 
   // Make a move
   const makeMove = useCallback(async (from: { row: number; col: number }, to: { row: number; col: number }) => {
@@ -74,6 +82,19 @@ export default function App() {
 
     // Update database
     if (gameId) {
+      const moveNotation = newHistory[newHistory.length - 1];
+
+      // Save move to chess_moves table
+      await supabase
+        .from('chess_moves')
+        .insert({
+          game_id: gameId,
+          move_number: newHistory.length,
+          move_notation: moveNotation,
+          played_by: 'player'
+        });
+
+      // Update game state
       await supabase
         .from('chess_games')
         .update({
@@ -157,6 +178,20 @@ export default function App() {
 
       // Update database
       if (gameId) {
+        const moveNotation = newHistory[newHistory.length - 1];
+
+        // Save move to chess_moves table
+        await supabase
+          .from('chess_moves')
+          .insert({
+            game_id: gameId,
+            move_number: newHistory.length,
+            move_notation: moveNotation,
+            evaluation: data.stats?.evaluation || null,
+            played_by: 'ai'
+          });
+
+        // Update game state
         await supabase
           .from('chess_games')
           .update({
