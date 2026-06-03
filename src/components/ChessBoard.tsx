@@ -61,17 +61,11 @@ export const ChessBoard: React.FC<ChessBoardProps> = ({
 
         {/* Chess piece */}
         {piece !== '.' && (
-          <div className="absolute inset-0 flex items-center justify-center select-none pointer-events-none">
+          <div className="absolute inset-0 flex items-center justify-center select-none pointer-events-none font-bold">
             <span
-              className="text-4xl sm:text-5xl md:text-6xl drop-shadow-lg"
+              className="text-6xl"
               style={{
-                color: piece === piece.toUpperCase() && piece !== piece.toLowerCase() ? '#FFFFFF' : '#000000',
-                textShadow: piece === piece.toUpperCase() && piece !== piece.toLowerCase()
-                  ? '1px 1px 2px #000000, 2px 2px 4px rgba(0,0,0,0.8), -1px -1px 2px rgba(0,0,0,0.5)'
-                  : '1px 1px 2px #FFFFFF, 2px 2px 4px rgba(255,255,255,0.8), -1px -1px 2px rgba(255,255,255,0.5)',
-                lineHeight: '1',
-                fontWeight: 'bold',
-                letterSpacing: '-0.02em'
+                color: piece === piece.toUpperCase() && piece !== piece.toLowerCase() ? '#000000' : '#FFFFFF',
               }}
             >
               {ChessEngine.getPieceSymbol(piece)}

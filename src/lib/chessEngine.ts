@@ -293,6 +293,8 @@ export class ChessEngine {
       'k': '♚', 'q': '♛', 'r': '♜', 'b': '♝', 'n': '♞', 'p': '♟',
       '.': ''
     };
-    return symbols[piece] || '';
+    const symbol = symbols[piece];
+    // If Unicode symbol not available, use ASCII fallback
+    return symbol !== undefined ? symbol : (piece !== '.' ? piece.toUpperCase() : '');
   }
 }
