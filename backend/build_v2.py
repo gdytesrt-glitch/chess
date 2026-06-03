@@ -369,8 +369,6 @@ class CognitiveMemory:
 # 3. perft_test.py
 # ─────────────────────────────────────────────────────────────────────────────
 PERFT = r"""
-"""
-PERFT = r"""
 from chess_board import Board, generate_legal_moves
 
 # Standard Perft values for initial position
