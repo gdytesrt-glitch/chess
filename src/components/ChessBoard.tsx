@@ -65,12 +65,12 @@ export const ChessBoard: React.FC<ChessBoardProps> = ({
             <span
               className="text-4xl sm:text-5xl md:text-6xl drop-shadow-lg"
               style={{
-                color: piece === piece.toUpperCase() && piece !== piece.toLowerCase() ? '#F5F5F5' : '#2A2A2A',
+                color: piece === piece.toUpperCase() && piece !== piece.toLowerCase() ? '#FFFFFF' : '#000000',
                 textShadow: piece === piece.toUpperCase() && piece !== piece.toLowerCase()
-                  ? '0 2px 8px rgba(0,0,0,0.95), 0 0 12px rgba(0,0,0,0.7)'
-                  : '0 1px 4px rgba(255,255,255,0.5)',
-                lineHeight: 1,
-                fontWeight: '900',
+                  ? '1px 1px 2px #000000, 2px 2px 4px rgba(0,0,0,0.8), -1px -1px 2px rgba(0,0,0,0.5)'
+                  : '1px 1px 2px #FFFFFF, 2px 2px 4px rgba(255,255,255,0.8), -1px -1px 2px rgba(255,255,255,0.5)',
+                lineHeight: '1',
+                fontWeight: 'bold',
                 letterSpacing: '-0.02em'
               }}
             >
