@@ -56,12 +56,11 @@ export default function App() {
       // If AI plays first (black player chosen), trigger AI move
       if (color === 'black') {
         setIsAIThinking(true);
-        setTimeout(() => {
-          makeAIMove(newBoard, []);
-        }, 500);
+        // Note: makeAIMove will be called after a short delay
+        // This is handled in the effect that responds to board changes
       }
     }
-  }, [makeAIMove]);
+  }, []);
 
   // Make a move
   const makeMove = useCallback(async (from: { row: number; col: number }, to: { row: number; col: number }) => {
@@ -227,6 +226,16 @@ export default function App() {
       setIsAIThinking(false);
     }
   }, [difficulty, gameId, playerColor]);
+
+  // Effect to trigger AI's first move when playing as black
+  useEffect(() => {
+    if (gameMode === 'playing' && playerColor === 'black' && moveHistory.length === 0 && isAIThinking) {
+      const timer = setTimeout(() => {
+        makeAIMove(board, []);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [gameMode, playerColor, moveHistory.length, isAIThinking, makeAIMove, board]);
 
   // Handle square click
   const handleSquareClick = useCallback((row: number, col: number) => {
